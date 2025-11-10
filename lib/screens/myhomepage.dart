@@ -1,3 +1,5 @@
+import 'package:aula6/widgets/mycard.dart';
+import 'package:aula6/widgets/mydrawer.dart';
 import 'package:aula6/widgets/mystory.dart';
 import 'package:flutter/material.dart';
 
@@ -11,45 +13,33 @@ class MyHomePage extends StatelessWidget {
         title: Text("Aula 6"),
         backgroundColor: Colors.greenAccent,
       ),
-      drawer: Drawer(
-        width: MediaQuery.of(context).size.width * 0.5,
-        backgroundColor: Colors.green,
-        elevation: 20,
+      drawer: MyDrawer(),
+      body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.only(top: 30, bottom: 30, left: 5),
-              child: Text(
-                        "Bem vindo!",
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
+            SizedBox(
+              height: 200,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 10,
+                itemBuilder: (context, itens) {
+                  return MyStory(title: "Carros");
+                }
+              ),
             ),
-            Divider(color: Colors.white),
-            ListTile(
-              iconColor: Colors.white,
-              textColor: Colors.white,
-              leading: Icon(Icons.mail),
-              title: Text("Contato"),
-            ),
-            ListTile(
-              iconColor: Colors.white,
-              textColor: Colors.white,
-              leading: Icon(Icons.settings),
-              title: Text("Preferências"),
-            ),
+
+            SizedBox(
+              height: 200,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 10,
+                itemBuilder: (context, itens) {
+                  return MyCard(title: "Bicicletas", image: "", like: false);
+                }
+              ),
+            )
           ],
         ),
-      ),
-      body: Column(
-        children: <Widget>[
-          MyStory(title: "Carros"),
-          MyStory(title: "Roupas"),
-        ],
       ),
     );
   }
