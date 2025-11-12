@@ -12,6 +12,15 @@ class MyCard extends StatefulWidget {
 }
 
 class _MyCardState extends State<MyCard> {
+  
+  bool likeState = false;
+
+  void _changeLike() {
+    setState(() {
+      likeState = !likeState;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,7 +37,10 @@ class _MyCardState extends State<MyCard> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               Text(widget.title!),
-              IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border))
+              IconButton(
+                onPressed: _changeLike,
+                icon: (likeState) ? Icon(Icons.favorite) : Icon(Icons.favorite_border)
+              )
             ],
           ),
         )
