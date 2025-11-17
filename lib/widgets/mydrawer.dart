@@ -14,7 +14,7 @@ class MyDrawer extends StatelessWidget {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.only(top: 30, bottom: 30, left: 5),
-              child: Text(
+              child: const Text(
                         "Bem vindo!",
                         style: TextStyle(
                           fontSize: 30,
@@ -23,14 +23,14 @@ class MyDrawer extends StatelessWidget {
                         ),
                       ),
             ),
-            Divider(color: Colors.white),
-            ListTile(
+            const Divider(color: Colors.white),
+            const ListTile(
               iconColor: Colors.white,
               textColor: Colors.white,
               leading: Icon(Icons.mail),
               title: Text("Contato"),
             ),
-            ListTile(
+            const ListTile(
               iconColor: Colors.white,
               textColor: Colors.white,
               leading: Icon(Icons.settings),

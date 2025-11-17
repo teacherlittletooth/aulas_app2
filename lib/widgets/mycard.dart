@@ -25,7 +25,7 @@ class _MyCardState extends State<MyCard> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Container(
+        const SizedBox(
           height: 150,
           width: 250,
           child: FlutterLogo(),
@@ -39,7 +39,7 @@ class _MyCardState extends State<MyCard> {
               Text(widget.title!),
               IconButton(
                 onPressed: _changeLike,
-                icon: (likeState) ? Icon(Icons.favorite) : Icon(Icons.favorite_border)
+                icon: (likeState) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border)
               )
             ],
           ),

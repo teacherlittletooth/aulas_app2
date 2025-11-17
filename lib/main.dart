@@ -1,4 +1,5 @@
 import 'package:aula6/screens/myhomepage.dart';
+import 'package:aula6/screens/settingspage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: MyHomePage()
+      home: MyHomePage(),
     );
   }
 }
