@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:form_flutter/widgets/my_button.dart';
+import 'package:form_flutter/widgets/my_checkbox.dart';
 import 'package:form_flutter/widgets/my_radio.dart';
+import 'package:form_flutter/widgets/my_slider.dart';
+import 'package:form_flutter/widgets/my_switch.dart';
 import 'package:form_flutter/widgets/my_text_field.dart';
+import 'package:form_flutter/widgets/my_title.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FormPage extends StatelessWidget {
@@ -23,41 +28,23 @@ class FormPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
 
-              Padding(
-                padding: EdgeInsetsGeometry.only(bottom: 8),
-                child: Text(
-                  "Dados pessoais:",
-                  style: GoogleFonts.uchen(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold
-                  ),
-                ),
-              ),
+              MyTitle(title: "Dados pessoais"),
 
               SizedBox(
                 width: double.infinity,
-                child: MyTextField(),
+                child: MyTextField(title: "Nome"),
               ),
 
               SizedBox(height: 15),
 
               SizedBox(
                 width: double.infinity,
-                child: MyTextField(),
+                child: MyTextField(title: "Data de nascimento"),
               ),
 
               SizedBox(height: 15),
 
-              Padding(
-                padding: EdgeInsetsGeometry.only(bottom: 8),
-                child: Text(
-                  "Gênero:",
-                  style: GoogleFonts.uchen(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold
-                  ),
-                ),
-              ),
+              MyTitle(title: "Gênero"),
 
               SizedBox(height: 15),
 
@@ -65,10 +52,42 @@ class FormPage extends StatelessWidget {
                   //mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    MyRadio(),
-                    MyRadio()
+                    MyRadio(title: "Masculino"),
+                    MyRadio(title: "Feminino")
                   ],
               ),
+
+              SizedBox(height: 15),
+
+              MyTitle(title: "Preferências"),
+
+              SizedBox(height: 15),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  MyCheckbox(title: "Música"),
+                  MyCheckbox(title: "Esportes"),
+                  MyCheckbox(title: "Filmes e séries"),
+                  MyCheckbox(title: "Culinária"),
+                ],
+              ),
+
+              SizedBox(height: 15),
+
+              MyTitle(title: "Escolaridade"),
+
+              SizedBox(height: 15),
+
+              MySlider(),
+
+              SizedBox(height: 15),
+
+              MySwitch(title: "Deseja receber notificações?"),
+
+              SizedBox(height: 15),
+
+              MyButton(title: "Salvar", icon: Icons.save)
 
             ],
           ),
