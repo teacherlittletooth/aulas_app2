@@ -1,26 +1,47 @@
 import 'package:flutter/material.dart';
 
 class MyRadio extends StatefulWidget {
-  final String? title;
+  final ValueChanged<String?> value;
 
-  const MyRadio({super.key, required this.title});
+  const MyRadio({super.key, required this.value});
 
   @override
   State<MyRadio> createState() => _MyRadioState();
 }
 
 class _MyRadioState extends State<MyRadio> {
-  int _value = 0;
+  String _value = "Masculino";
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: RadioListTile(
-        groupValue: 1,
-        onChanged: (v)=> _value = v!,
-        value: _value,
-        title: Text(widget.title!),
-      ),
+    return RadioGroup(
+      groupValue: _value,
+      onChanged: (v){
+        setState(() {
+          _value = v.toString();
+          widget.value(v.toString());
+        });
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Expanded(
+            child: RadioListTile(
+              value: "Masculino",
+              title: Text("Masculino"),
+              controlAffinity: ListTileControlAffinity.leading
+            )
+          ),
+
+          Expanded(
+            child: RadioListTile(
+              value: "Feminino",
+              title: Text("Feminino"),
+              controlAffinity: ListTileControlAffinity.leading
+            )
+          ),
+        ],
+      )
     );
   }
 }
