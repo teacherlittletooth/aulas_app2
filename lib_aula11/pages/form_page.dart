@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_flutter/widgets/my_alert.dart';
 import 'package:form_flutter/widgets/my_button.dart';
 import 'package:form_flutter/widgets/my_checkbox.dart';
 import 'package:form_flutter/widgets/my_radio.dart';
@@ -18,8 +19,17 @@ class FormPage extends StatefulWidget {
 class _FormPageState extends State<FormPage> {
   double _sliderValue = 0;
   bool _notify = false;
-  List<String> _listPrefs = [];
+  final List<String> _listPrefs = [];
   String _gender = "Masculino";
+  final TextEditingController _controllerNome = TextEditingController();
+  final TextEditingController _controllerData = TextEditingController();
+
+  @override
+  void dispose() {
+    _controllerNome.dispose();
+    _controllerData.dispose();
+    super.dispose();
+  }
 
   void _changeList(pref) {
     (!_listPrefs.contains(pref))
@@ -44,14 +54,22 @@ class _FormPageState extends State<FormPage> {
 
               SizedBox(
                 width: double.infinity,
-                child: MyTextField(title: "Nome"),
+                child: MyTextField(
+                  title: "Nome",
+                  isDate: false,
+                  controller: _controllerNome,
+                ),
               ),
 
               SizedBox(height: 15),
 
               SizedBox(
                 width: double.infinity,
-                child: MyTextField(title: "Data de nascimento"),
+                child: MyTextField(
+                  title: "Data de nascimento",
+                  isDate: true,
+                  controller: _controllerData,
+                ),
               ),
 
               SizedBox(height: 15),
@@ -127,10 +145,23 @@ class _FormPageState extends State<FormPage> {
                 title: "Salvar",
                 icon: Icons.save,
                 onClick: (){
+                  print(_controllerNome.text);
+                  print(_controllerData.text);
+                  print(_gender);
+                  print(_listPrefs);
                   print(_sliderValue);
                   print(_notify);
-                  print(_listPrefs);
-                  print(_gender);
+
+                  MyAlert.showSimpleDialog(
+                    context,
+                    "Dados cadastrais",
+                    "${_controllerNome.text}\n"
+                    "${_controllerData.text}\n"
+                    "$_gender\n"
+                    "$_listPrefs\n"
+                    "$_sliderValue\n"
+                    "$_notify"
+                  );
                 },
               ),
             ],
