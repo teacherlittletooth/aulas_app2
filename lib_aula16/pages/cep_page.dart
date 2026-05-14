@@ -1,56 +1,92 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as Http;
 import 'dart:convert';
 
-class CepPage extends StatefulWidget {
-  const CepPage({super.key});
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as Http;
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<CepPage> createState() => _CepPageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _CepPageState extends State<CepPage> {
-  final TextEditingController _cepController = TextEditingController();
-  String cepRecebido = "";
+class _HomePageState extends State<HomePage> {
+  final TextEditingController _pesquisa = TextEditingController();
+  String _cepRecebido = "";
 
-  _retornaCep() async {
-    String busca = "http://viacep.com.br/ws/" + _cepController.text + "/json/";
-    Http.Response response = await Http.get(Uri.parse(busca));
-    Map site = json.decode(response.body);
+  _consultarCep() async {
+    _cepRecebido = "";
+    String busca = "https://viacep.com.br/ws/${_pesquisa.text}/json/";
 
-    cepRecebido += site["logradouro"] + "\n";
-    cepRecebido += site["localidade"] + "\n";
-    cepRecebido += site["uf"] + "\n";
+    try {
+      Http.Response resposta = await Http.get(Uri.parse(busca));
+      Map site = json.decode(resposta.body);
+
+      print(resposta.body);
+
+        _cepRecebido += site["logradouro"] + "\n";
+        _cepRecebido += site["bairro"] + "\n";
+        _cepRecebido += site["localidade"] + "\n";
+        _cepRecebido += site["estado"];
+    } catch(e) {
+        _cepRecebido = "Erro na pesquisa";
+    }
+    setState(() {});
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Buscar Cep"),
+        title: Text("Consulta CEP"),
+        backgroundColor: Colors.blue,
+        centerTitle: true,
       ),
-      body: Column(
-        children: [
-          TextField(
-            controller: _cepController,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              label: Text("CEP"),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            SizedBox(
+                child: Text(
+                  "Digite o cep\n(somente números)",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
             ),
-            keyboardType: TextInputType.number,
-          ),
-          ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _retornaCep();
-                });
-              },
-              child: Text("Buscar CEP")
+
+            SizedBox(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: TextField(
+                  controller: _pesquisa,
+                  decoration: InputDecoration(
+                    label: Text("CEP")
+                  ),
+                )
             ),
-          SizedBox(
-            child: Text(cepRecebido),
-          )
-        ],
+
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.6,
+              child: ElevatedButton(
+                  onPressed: _consultarCep,
+                  child: Text("Consultar")
+              ),
+            ),
+
+            Container(
+                padding: EdgeInsets.all(10),
+                width: MediaQuery.of(context).size.width * 0.6,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 180, 200, 235),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(_cepRecebido)
+            )
+          ],
+        ),
       ),
     );
   }
